@@ -92,6 +92,9 @@ sudo apt update
 sudo apt -y install cuda=11.8.0-1
 sudo apt-mark hold cuda
 rm cuda-keyring_1.1-1_all.deb
+export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.8/include
+export PATH="/usr/local/cuda-11.8/bin:$PATH"
 
 echo "Check GPU"
 lspci | grep -i nvidia
@@ -110,8 +113,14 @@ source venv/bin/activate
 pip3 install wheel
 pip3 install -r requirements.txt
 pip3 install -r requirements_versions.txt
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip3 install xformers
+#pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Fix missing/incorrect modules
+pip3 install torch==2.0.0+cu118 torchvision==0.15.1+cu118 torchaudio==2.0.1+cu118 torchtext==0.15.1 torchdata==0.6.0 --extra-index-url https://download.pytorch.org/whl/cu118 -U
+pip3 install xformers==0.0.19 triton==2.0.0 -U
+pip3 install httpx==0.24.1
+pip3 install git+https://github.com/openai/CLIP.git
+pip3 install gdown
 
 echo "Installing dependencies for the Dreambooth extension"
 cd ${WORKSPACE}/stable-diffusion-webui/extensions/sd_dreambooth_extension
@@ -135,10 +144,6 @@ echo "Adding configuration files for AUTOMATIC1111"
 cp ${WORKSPACE}/stable-diffusion-terraform/config/config.json ${WORKSPACE}/stable-diffusion-webui/config.json
 cp ${WORKSPACE}/stable-diffusion-terraform/config/ui-config.json ${WORKSPACE}/stable-diffusion-webui/ui-config.json
 cp ${WORKSPACE}/stable-diffusion-terraform/config/webui-user.sh ${WORKSPACE}/stable-diffusion-webui/webui-user.sh
-
-# Fix httpx version
-source venv/bin/activate
-pip3 install httpx==0.24.1
 
 # Reboot for the Nvidia GPU to be used
 sudo reboot
