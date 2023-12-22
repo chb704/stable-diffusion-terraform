@@ -11,7 +11,7 @@ extensions on Ubuntu 22.04 LTS Linux using an AWS EC2 GPU spot
 instance for the fraction of the cost of an on-demand instance.
 
 A Python script is provided to assist you with determining
-your bid prince for the spot EC2 instance, and [Terraform](
+your bid price for the spot EC2 instance, and [Terraform](
 https://www.terraform.io/) code is provided to assist you
 with provisioning the EC2 instance in AWS.
 
@@ -19,7 +19,6 @@ It is recommended to use a GPU instance that has at
 least 16GB of GPU VRAM to run the standard Stable Diffusion
 Web UI. You will need at least 32GB of system memory and
 at least 20GB of GPU VRAM if you intend on doing training.
-
 
 ## Clone the repo
 
@@ -59,18 +58,6 @@ This will return the spot price, for example `0.24192`.
 ## Create your Stable Diffusion EC2 instance
 
 ### Ensure you are in the Terraform directory
-
-```bash
-pwd
-```
-
-If you are in the `scripts` directory:
-
-```bash
-cd ../terraform
-```
-
-If you are in the root of the project:
 
 ```bash
 cd terraform
@@ -165,7 +152,7 @@ You should see something like this once everything
 is installed:
 
 ```
-Cloud-init v. 23.1.2-0ubuntu0~22.04.1 finished at Fri, 12 May 2023 14:54:27 +0000. Datasource DataSourceEc2Local.  Up 10.65 seconds
+Cloud-init v. 23.1.2-0ubuntu0~22.04.1 finished at Fri, 5 Jan 2024 14:54:27 +0000. Datasource DataSourceEc2Local.  Up 10.65 seconds
 ```
 
 Once the server is ready, you can start Stable Diffusion
@@ -179,16 +166,12 @@ cd /home/ubuntu/stable-diffusion-webui
 ## Access Stable Diffusion WebUI
 
 Once the Stable Diffusion WebUI is running, you can
-access it in your web browser on your IP (that you provided
+access it in a web browser from your IP (that you provided
 in `vars.tf`) on port 7860, for example:
 
 ```
-http://127.0.0.1:7860
+http://YOUR_IP_ADDRESS:7860
 ```
-
-Obviously replace `127.0.0.1` with the IP that was
-returned when you ran the curl command to
-`https://icanhazip` above.
 
 ## Destroy the Stable Diffusion AWS resources
 
@@ -210,12 +193,7 @@ terraform destroy
 
 See the the [Dreambooth extension wiki](https://github.com/d8ahazard/sd_dreambooth_extension/wiki/Troubleshooting#OOM).
 
-## Community and Contributing
+## Community and Contributions
 
-Pull requests and issues on [GitHub](https://github.com/ashleykleynhans/stable-diffusion-terraform)
+Pull requests and issues on [GitHub](https://github.com/chb704/stable-diffusion-terraform)
 are welcome. Bug fixes and new features are encouraged.
-
-## Appreciate my work?
-
-<a href="https://www.buymeacoffee.com/ashleyk" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
- 
