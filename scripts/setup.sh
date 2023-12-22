@@ -136,5 +136,9 @@ cp ${WORKSPACE}/stable-diffusion-terraform/config/config.json ${WORKSPACE}/stabl
 cp ${WORKSPACE}/stable-diffusion-terraform/config/ui-config.json ${WORKSPACE}/stable-diffusion-webui/ui-config.json
 cp ${WORKSPACE}/stable-diffusion-terraform/config/webui-user.sh ${WORKSPACE}/stable-diffusion-webui/webui-user.sh
 
+# Fix httpx version
+source venv/bin/activate
+pip3 install httpx==0.24.1
+
 # Reboot for the Nvidia GPU to be used
 sudo reboot
